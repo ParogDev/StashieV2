@@ -126,6 +126,13 @@ internal class ActionsHandler
         }
 
         var itemsSortedByStash = Main.DropItems.OrderBy(x => x.SkipSwitchTab || x.StashIndex == Main.VisibleStashIndex ? 0 : 1).ThenBy(x => x.StashIndex).ToList();
+        
+        // If bulk stash is enabled, filter out duplicates of stackable currency and fragments so we can right-click stash them in bulk
+        if (Main.Settings.EnableBulkStash)        
+            itemsSortedByStash = itemsSortedByStash
+                .GroupBy(x => (x.ItemData.Name, x.ItemData.ClassName == "StackableCurrency" || x.ItemData.ClassName == "Fragment"))
+                .Select(g => g.First())
+                .ToList();
 
         Input.KeyDown(Keys.LControlKey);
         Main.LogMessage($"Want to drop {itemsSortedByStash.Count} items.");
@@ -156,17 +163,21 @@ internal class ActionsHandler
         Input.SetCursorPos(stashResult.ClickPos + Main.ClickWindowOffset);
         yield return new WaitTime(Main.Settings.HoverItemDelay);
         var shiftUsed = false;
+
         if (stashResult.ShiftForStashing)
         {
             Input.KeyDown(Keys.ShiftKey);
             shiftUsed = true;
-        }
-
-        Input.Click(MouseButtons.Left);
-        if (shiftUsed)
-        {
+        }        
+            
+        // If bulk stash is enabled, we ctrl-right click stackable currency and fragments to stash them in bulk
+        if (Main.Settings.EnableBulkStash && (stashResult.ItemData.ClassName == "StackableCurrency" || stashResult.ItemData.ClassName == "Fragment")) 
+            Input.Click(MouseButtons.Right);
+        else 
+            Input.Click(MouseButtons.Left);
+        
+        if (Input.IsKeyDown(Keys.ShiftKey) || shiftUsed)           
             Input.KeyUp(Keys.ShiftKey);
-        }
 
         yield return new WaitTime(Main.Settings.StashItemDelay);
     }

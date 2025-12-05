@@ -19,6 +19,9 @@ namespace Stashie
         [Menu("Stash Hotkey")]
         public HotkeyNode DropHotkey { get; set; } = Keys.F3;
 
+        [Menu("Enable Bulk Stash",
+            "Uses ctrl+right click to stash multiple currency or fragment items at once.")]
+        public ToggleNode EnableBulkStash { get; set; } = new(false);
         [Menu("Extra Delay", "Delay to wait after each inventory clearing attempt(in ms).")]
         public RangeNode<int> ExtraDelay { get; set; } = new(0, 0, 2000);
 
