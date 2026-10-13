@@ -16,8 +16,8 @@ public class StashieCore : BaseSettingsPlugin<StashieSettings>
 {
     public override void OnClose()
     {
-        HudLog.Flush();
-        base.OnClose();
+        try { HudLog.Flush(); }
+        finally { base.OnClose(); }
     }
 
     public const string CoroutineName = "Drop To Stash";
