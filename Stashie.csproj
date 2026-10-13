@@ -12,24 +12,6 @@
     <DebugType>embedded</DebugType>
     <PathMap>$(MSBuildProjectDirectory)=$(MSBuildProjectName)</PathMap>
     <EmbedAllSources>true</EmbedAllSources>
-    <OutputPath>$(exapiPackage)\Plugins\Compiled\Stashie\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>
-			cd "$(OutputPath)"
-			for /r %%i in (*.dll) do (
-			if not "%%~nxi" == "Stashie.dll" (
-			echo Deleting "%%i"
-			del /q "%%i"
-			)
-			)
-			for /d /r %%i in (*) do (
-			if not "%%~nxi" == "Stashie" (
-			echo Deleting directory "%%i"
-			rd /s /q "%%i"
-			)
-			)
-		</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ExileCore">
