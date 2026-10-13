@@ -14,6 +14,12 @@ namespace Stashie;
 
 public class StashieCore : BaseSettingsPlugin<StashieSettings>
 {
+    public override void OnClose()
+    {
+        try { HudLog.Flush(); }
+        finally { base.OnClose(); }
+    }
+
     public const string CoroutineName = "Drop To Stash";
     public const string StashTabsNameChecker = "Stash Tabs Name Checker";
     public static StashieCore Main;

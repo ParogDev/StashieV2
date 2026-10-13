@@ -31,17 +31,17 @@ internal class ActionsHandler
             case string name:
                 if (!RenamedAllStashNames.Contains(name))
                 {
-                    DebugWindow.LogMsg($"{Main.Name}: can't find tab with name '{name}'.");
+                    HudLog.Fault($"can't switch to tab '{name}': no stash tab has that name ({RenamedAllStashNames.Count} names known)", "switch-tab-name");
                     break;
                 }
 
                 var tempIndex = RenamedAllStashNames.IndexOf(name);
                 Main.CoroutineWorker = new Coroutine(ActionCoRoutine.ProcessSwitchToTab(tempIndex), Main, CoroutineName);
-                DebugWindow.LogMsg($"{Main.Name}: Switching to tab with index: {tempIndex} ('{name}').");
+                HudLog.Quiet($"Switching to tab with index: {tempIndex} ('{name}').");
                 break;
 
             default:
-                DebugWindow.LogMsg("The received argument is not a string or an integer.");
+                HudLog.Fault($"switch to tab: the argument is {tab?.GetType().Name ?? "null"}, not a string or an integer", "switch-tab-arg");
                 break;
         }
 
@@ -121,7 +121,7 @@ internal class ActionsHandler
         Main.VisibleStashIndex = GetIndexOfCurrentVisibleTab();
         if (Main.VisibleStashIndex < 0)
         {
-            Main.LogMessage($"Stashie: VisibleStashIndex was invalid: {Main.VisibleStashIndex}, stopping.");
+            HudLog.Fault($"VisibleStashIndex was invalid: {Main.VisibleStashIndex}, stopping.", "visible-stash-index");
             yield break;
         }
 
@@ -135,7 +135,7 @@ internal class ActionsHandler
                 .ToList();
 
         Input.KeyDown(Keys.LControlKey);
-        Main.LogMessage($"Want to drop {itemsSortedByStash.Count} items.");
+        HudLog.Quiet($"Want to drop {itemsSortedByStash.Count} items.");
         foreach (var stashResult in itemsSortedByStash)
         {
             Main.CoroutineIteration++;
