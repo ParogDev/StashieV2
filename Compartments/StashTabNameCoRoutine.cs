@@ -27,7 +27,7 @@ internal class StashTabNameCoRoutine
 
         if (newNames.Count < 4)
         {
-            Main.LogError("Can't parse names.");
+            HudLog.Fault($"Can't parse stash tab names: got {newNames.Count}, need at least 4", "parse-names");
             return;
         }
 
@@ -94,7 +94,7 @@ internal class StashTabNameCoRoutine
             }
             catch (Exception e)
             {
-                DebugWindow.LogError($"UpdateStashNames SettingsListNodes {e}");
+                HudLog.Fault($"UpdateStashNames SettingsListNodes {e}", "update-stash-names");
             }
 
         StashieSettingsHandler.GenerateTabMenu();

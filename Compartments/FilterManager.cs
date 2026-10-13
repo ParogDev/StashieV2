@@ -80,7 +80,7 @@ internal class FilterManager
                 }
                 catch (Exception ex)
                 {
-                    DebugWindow.LogError($"Check filters error: {ex}");
+                    HudLog.Fault($"Check filters error: {ex}", "check-filters");
                 }
             }
         }
