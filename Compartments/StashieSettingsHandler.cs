@@ -2,7 +2,7 @@
 using ExileCore.PoEMemory.Components;
 using ExileCore.PoEMemory.MemoryObjects;
 using ExileCore.Shared.Enums;
-using ImGuiNET;
+using Hexa.NET.ImGui;
 using SharpDX;
 using Stashie.Classes;
 using System;
@@ -129,7 +129,7 @@ public class StashieSettingsHandler
                         }
 
                         ImGui.Spacing();
-                        ImGuiNative.igIndent(350);
+                        ImGui.Indent(350);
                         if (ImGui.Button("Close", new Vector2N(100, 20)))
                             ImGui.CloseCurrentPopup();
 

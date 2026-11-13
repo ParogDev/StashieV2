@@ -1,6 +1,6 @@
 ﻿using ExileCore;
 using ExileCore.Shared;
-using ImGuiNET;
+using Hexa.NET.ImGui;
 using Stashie.Classes;
 using Stashie.Compartments;
 using Stashie.Filter;
