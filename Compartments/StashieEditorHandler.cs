@@ -129,7 +129,7 @@ public class StashieEditorHandler
 
                 HandleFilterDragDrop(tempFilters, localParentIndex, localFilterIndex);
                 ImGui.SameLine();
-                ImGui.InputTextWithHint("", "\"Heist Items\" etc..", ref currentFilter.FilterName, 200);
+                ImGui.InputTextWithHint("##filterName", "\"Heist Items\" etc..", ref currentFilter.FilterName, 200);
 
                 ImGui.SameLine();
                 CheckboxWithTooltip("Shifting", ref currentFilter.Shifting, "Holds Shift to bypass Tab Affinity.");
